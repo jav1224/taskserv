@@ -201,32 +201,30 @@ def agregar_tarea():
 def eliminar_tarea(id):
     conexion = obtener_conexion()
     cursor = conexion.cursor()
-    
-    cursor.execute('DELETE FROM tareas WHERE id = %s', (id,))
+
+    cursor.execute('DELETE FROM tareas WHERE id = %s AND usuario_id = %s',
+                   (id, session['usuario_id']))
     conexion.commit()
-    
+
     cursor.close()
     conexion.close()
-    
-    # Aqui nos avisa que se elmino una tarea!
+
     socketio.emit('actualizacion_tareas', {'mensaje': '¡Alguien eliminó una tarea!'})
-    
     return redirect('/tareas')
 
 @app.route('/completar_tarea/<int:id>')
 def completar_tarea(id):
     conexion = obtener_conexion()
     cursor = conexion.cursor()
-    
-    cursor.execute("UPDATE tareas SET estado = 'Completada' WHERE id = %s", (id,))
+
+    cursor.execute("UPDATE tareas SET estado = 'Completada' WHERE id = %s AND usuario_id = %s",
+                   (id, session['usuario_id']))
     conexion.commit()
-    
+
     cursor.close()
     conexion.close()
-    
-    
+
     socketio.emit('actualizacion_tareas', {'mensaje': '¡Alguien completó una tarea!'})
-    
     return redirect('/tareas')
 
 if __name__ == '__main__':
