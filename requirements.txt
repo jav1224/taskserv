@@ -2,6 +2,7 @@ flask
 flask-socketio
 simple-websocket
 gunicorn
+eventlet
 psycopg2-binary
 python-dotenv
 scikit-learn
