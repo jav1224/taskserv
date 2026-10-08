@@ -23,7 +23,11 @@ def proteger_rutas():
     if 'usuario_id' not in session and request.endpoint not in rutas_publicas:
         # 2. Si no está logueado y la ruta no es pública, lo mandamos al login
         return redirect(url_for('login'))
-
+        
+@app.route('/')
+def index():
+    return render_template('index.html')
+    
 # Inicializamos el  (WebSockets)
 socketio = SocketIO(app)
 
