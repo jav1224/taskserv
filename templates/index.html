@@ -3,10 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <title>Gestor IA</title>
-        {% if 'usuario_id' not in session %}
-            <!-- Aquí va tu formulario de login actual -->
-            window.location.href = "{{ url_for('login') }}";
-        {% endif %}
         <style>
             body { 
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -44,6 +40,10 @@
         </style>
     </head>
     <body>
+        {% if 'usuario_id' not in session %}
+            <!-- Aquí va tu formulario de login actual -->
+            window.location.href = "{{ url_for('login') }}";
+        {% endif %}
         <div class="tarjeta">
             <h1>⚙️ Panel de Control IA</h1>
             <p>Bienvenido al Gestor de Tareas Inteligente.</p>
