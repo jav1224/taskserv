@@ -3,6 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <title>Gestor IA</title>
+        <script>
+            (function () {
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    window.location.replace("login.html");
+                }
+            })();
+        </script>
         <style>
             body { 
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
