@@ -15,22 +15,21 @@ app.secret_key = 'llave_super_secreta_de_taskserv'
 
 @app.before_request
 def proteger_rutas():
-    # 1. Definir qué rutas SÍ pueden ver los usuarios que no han iniciado sesión
-    # Agrega aquí tu ruta de login y los archivos estáticos (CSS/JS)
-    rutas_publicas = ['login', 'static'] 
+    # Evita errores si Flask procesa una petición interna sin endpoint válido
+    if request.endpoint is None:
+        return
+
+    # 1. Definir qué funciones de Python SÍ son públicas
+    # 'inicio' es la función que muestra tu login.html en la raíz /
+    # 'registro' debe ser pública para que los nuevos usuarios se registren
+    # 'login' procesa el formulario POST
+    # 'static' permite cargar tus estilos CSS y JS
+    rutas_publicas = ['inicio', 'registro', 'login', 'static'] 
     
-    # request.endpoint contiene el nombre de la función que el usuario quiere visitar
+    # 2. Si no está logueado y la función no es pública, lo mandamos a la raíz (donde está el formulario)
     if 'usuario_id' not in session and request.endpoint not in rutas_publicas:
-        # 2. Si no está logueado y la ruta no es pública, lo mandamos al login
-        return redirect(url_for('login'))
+        return redirect(url_for('inicio'))
         
-@app.route('/index')
-def index():
-    if 'usuario_id' not in session:
-        # 2. Si no está logueado y la ruta no es pública, lo mandamos al login
-        #return redirect(url_for('login'))
-        return render_template('index.html')
-    return render_template('index.html')
     
 # Inicializamos el  (WebSockets)
 socketio = SocketIO(app)
