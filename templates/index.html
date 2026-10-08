@@ -3,13 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Gestor IA</title>
-        <script>
-            (function () {
-                if (!('usuario_id' in $session)) {
-                    window.location.replace("login.html");
-                }
-            });
-        </script>
+        {% if 'usuario_id' not in session %}
+            <!-- Aquí va tu formulario de login actual -->
+            window.location.href = "{{ url_for('login') }}";
+        {% endif %}
         <style>
             body { 
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
