@@ -38,7 +38,11 @@ def sin_cache(respuesta):
 @socketio.on('connect')
 def al_conectar():
     if 'usuario_id' not in session:
-        return False      
+        return False    
+
+@app.route('/panel')
+def panel():
+    return render_template('index.html')
 
 DATABASE_URL = os.environ["DATABASE_URL"]
 
