@@ -5,9 +5,8 @@
         <title>Gestor IA</title>
         <script>
             (function () {
-                const token = localStorage.getItem("token");
-                if (!token) {
-                    window.location.replace("login.html");
+                if 'usuario_id' not in session:
+                    return render_template('login.html')
                 }
             })();
         </script>
