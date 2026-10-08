@@ -13,26 +13,32 @@ app = Flask(__name__)
 # contraseña para mantener sesiones seguras
 app.secret_key = 'llave_super_secreta_de_taskserv' 
 
-@app.before_request
-def proteger_rutas():
-    # Evita errores si Flask procesa una petición interna sin endpoint válido
-    if request.endpoint is None:
-        return
-
-    # 1. Definir qué funciones de Python SÍ son públicas
-    # 'inicio' es la función que muestra tu login.html en la raíz /
-    # 'registro' debe ser pública para que los nuevos usuarios se registren
-    # 'login' procesa el formulario POST
-    # 'static' permite cargar tus estilos CSS y JS
-    rutas_publicas = ['inicio', 'registro', 'login', 'static'] 
-    
-    # 2. Si no está logueado y la función no es pública, lo mandamos a la raíz (donde está el formulario)
-    if 'usuario_id' not in session and request.endpoint not in rutas_publicas:
-        return redirect(url_for('inicio'))
-        
-    
 # Inicializamos el  (WebSockets)
 socketio = SocketIO(app)
+
+# Endpoints que se pueden visitar SIN sesión
+RUTAS_PUBLICAS = {'inicio', 'login', 'registro', 'static'}
+
+@app.before_request
+def verificar_sesion():
+    if request.endpoint is None:          # ruta inexistente (404)
+        return
+    if request.endpoint in RUTAS_PUBLICAS:
+        return
+    if 'usuario_id' not in session:
+        return redirect('/')              # '/' muestra login.html
+
+@app.after_request
+def sin_cache(respuesta):
+    # Evita que el botón "atrás" muestre páginas protegidas después de cerrar sesión
+    respuesta.headers['Cache-Control'] = 'no-store'
+    return respuesta
+
+# Protege también la conexión de WebSockets
+@socketio.on('connect')
+def al_conectar():
+    if 'usuario_id' not in session:
+        return False      
 
 DATABASE_URL = os.environ["DATABASE_URL"]
 
@@ -41,7 +47,6 @@ def obtener_conexion():
 
 def inicializar_bd():
     try:
-        
         conexion = obtener_conexion() 
         
         with conexion:
