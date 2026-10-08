@@ -5,10 +5,10 @@
         <title>Gestor IA</title>
         <script>
             (function () {
-                if 'usuario_id' not in session:
-                    return render_template('login.html')
+                if (!('usuario_id' in session)) {
+                    window.location.replace("login.html");
                 }
-            })();
+            });
         </script>
         <style>
             body { 
