@@ -24,7 +24,7 @@ def proteger_rutas():
         # 2. Si no está logueado y la ruta no es pública, lo mandamos al login
         return redirect(url_for('login'))
         
-@app.route('/')
+@app.route('/index')
 def index():
     if 'usuario_id' not in session:
         # 2. Si no está logueado y la ruta no es pública, lo mandamos al login
