@@ -13,6 +13,17 @@ app = Flask(__name__)
 # contraseña para mantener sesiones seguras
 app.secret_key = 'llave_super_secreta_de_taskserv' 
 
+@app.before_request
+def proteger_rutas():
+    # 1. Definir qué rutas SÍ pueden ver los usuarios que no han iniciado sesión
+    # Agrega aquí tu ruta de login y los archivos estáticos (CSS/JS)
+    rutas_publicas = ['login', 'static'] 
+    
+    # request.endpoint contiene el nombre de la función que el usuario quiere visitar
+    if 'usuario_id' not in session and request.endpoint not in rutas_publicas:
+        # 2. Si no está logueado y la ruta no es pública, lo mandamos al login
+        return redirect(url_for('login'))
+
 # Inicializamos el  (WebSockets)
 socketio = SocketIO(app)
 
