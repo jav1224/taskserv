@@ -1,8 +1,8 @@
- flask
- flask-socketio
- eventlet
- gunicorn
- psycopg2-binary
- python-dotenv
- werkzeug
- scikit-learn
+flask
+flask-socketio
+eventlet==0.33.3
+gunicorn
+psycopg2-binary
+python-dotenv
+werkzeug
+scikit-learn
