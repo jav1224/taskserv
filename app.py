@@ -145,6 +145,8 @@ def login():
     if usuario and check_password_hash(usuario['password'], password):
         session['usuario_id'] = usuario['id']
         session['nombre'] = usuario['nombre_usuario']
+        # --- LÍNEA AGREGADA: Guarda el rol en la sesión ---
+        session['rol'] = usuario.get('rol', 'empleado')
         return redirect('/tareas')
     else:
         flash('Usuario o contraseña incorrectos.', 'error')
@@ -165,7 +167,18 @@ def tareas():
     conexion = obtener_conexion()
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
     
-    cursor.execute('SELECT * FROM tareas WHERE usuario_id = %s ORDER BY id ASC', (session['usuario_id'],))
+    # --- BLOQUE MODIFICADO: Filtro para Administrador vs Empleado ---
+    if session.get('rol') == 'admin':
+        cursor.execute('''
+            SELECT tareas.*, usuarios.nombre_usuario 
+            FROM tareas 
+            JOIN usuarios ON tareas.usuario_id = usuarios.id 
+            ORDER BY tareas.id ASC
+        ''')
+    else:
+        cursor.execute('SELECT * FROM tareas WHERE usuario_id = %s ORDER BY id ASC', (session['usuario_id'],))
+    # ----------------------------------------------------------------
+    
     tareas_db = cursor.fetchall()
     
     cursor.close()
@@ -202,6 +215,8 @@ def eliminar_tarea(id):
     conexion = obtener_conexion()
     cursor = conexion.cursor()
 
+    # Si quisieras que Sistemas pudiera borrar tareas de otros, aquí habría que quitar el "AND usuario_id = %s" para el admin.
+    # Por ahora se queda igual para que cada quien borre solo lo suyo (o el admin sus propios tickets).
     cursor.execute('DELETE FROM tareas WHERE id = %s AND usuario_id = %s',
                    (id, session['usuario_id']))
     conexion.commit()
