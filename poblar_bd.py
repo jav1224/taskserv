@@ -1,9 +1,10 @@
 import requests
 import time
 
+BASE_URL = "https://taskserv.onrender.com"
 
-URL_LOGIN = "http://127.0.0.1:5000/login"
-URL_AGREGAR = "http://127.0.0.1:5000/agregar_tarea"
+URL_LOGIN = f"{BASE_URL}/login"
+URL_AGREGAR = f"{BASE_URL}/agregar_tarea"
 
 
 MI_USUARIO = "Hugo" 
