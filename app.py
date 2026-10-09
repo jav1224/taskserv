@@ -61,7 +61,8 @@ def inicializar_bd():
                     CREATE TABLE IF NOT EXISTS usuarios (
                         id SERIAL PRIMARY KEY,
                         nombre_usuario VARCHAR(50) UNIQUE NOT NULL,
-                        password TEXT NOT NULL
+                        password TEXT NOT NULL,
+                        rol VARCHAR(20) DEFAULT 'empleado'
                     );
                 ''')
                 
@@ -115,7 +116,7 @@ def registro():
         )
         conexion.commit()
 
-        flash('¡Registro exitoso! Ahora puedes iniciar sesión.', 'success')
+        flash('Registro exitoso, ahora puedes iniciar sesión', 'success')
 
     except psycopg2.IntegrityError:
         conexion.rollback()
@@ -145,7 +146,7 @@ def login():
     if usuario and check_password_hash(usuario['password'], password):
         session['usuario_id'] = usuario['id']
         session['nombre'] = usuario['nombre_usuario']
-        # --- LÍNEA AGREGADA: Guarda el rol en la sesión ---
+        #LÍNEA AGREGADA: guarda el rol en la sesión
         session['rol'] = usuario.get('rol', 'empleado')
         return redirect('/tareas')
     else:
@@ -167,7 +168,7 @@ def tareas():
     conexion = obtener_conexion()
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
     
-    # --- BLOQUE MODIFICADO: Filtro para Administrador vs Empleado ---
+    #BLOQUE MODIFICADO: filtro para administrador vs empleado
     if session.get('rol') == 'admin':
         cursor.execute('''
             SELECT tareas.*, usuarios.nombre_usuario 
@@ -177,7 +178,6 @@ def tareas():
         ''')
     else:
         cursor.execute('SELECT * FROM tareas WHERE usuario_id = %s ORDER BY id ASC', (session['usuario_id'],))
-    # ----------------------------------------------------------------
     
     tareas_db = cursor.fetchall()
     
