@@ -1,0 +1,11 @@
+flask
+flask-socketio
+simple-websocket
+gunicorn
+psycopg2-binary
+python-dotenv
+scikit-learn
+nltk
+pandas
+joblib
+numpy

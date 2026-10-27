@@ -1,0 +1,63 @@
+descripcion,prioridad
+Fallo crítico en el servidor de producción sistema caído,Alta
+La base de datos de usuarios no responde,Alta
+Hackeo detectado o brecha de seguridad,Alta
+Error critico en la base de datos,Alta
+Se cayó el sistema de pagos,Alta
+Servidor apagado o sin conexion,Alta
+Levantar servicios caidos de emergencia,Alta
+"Correo corporativo caído para toda la empresa, urgente",Alta
+"Ataque de ransomware en los equipos, actuar en 15 minutos",Alta
+"Sitio web de ventas inaccesible, el tiempo de caída cuesta dinero, urgente",Alta
+"Falla eléctrica en el centro de datos, resolver en 1 hora",Alta
+"Servidor de respaldo corrupto, requiere atención inmediata",Alta
+"Pérdida de datos de clientes, atender de inmediato",Alta
+"Firewall comprometido, solución en menos de 2 horas",Alta
+"Red principal sin servicio, restablecer en 45 minutos",Alta
+"Base de datos de facturación bloqueada, tiempo crítico, urgente",Alta
+"Acceso no autorizado al servidor, contener en 1 hora",Alta
+"Sistema de nómina caído, hay que resolverlo en 3 horas",Alta
+"Aplicación móvil no abre para ningún usuario, urgente",Alta
+"Servidor DNS caído, restaurar en 1 hora",Alta
+"Falla de energía en el servidor principal, restablecer en 20 minutos",Alta
+Configurar los nuevos switches de red,Media
+Instalar actualizaciones de Windows,Media
+Revisar conexion wifi intermitente,Media
+Programar backend del nuevo modulo,Media
+Crear nueva tabla en postgres,Media
+Respaldar informacion de la empresa,Media
+Levantar entorno de pruebas local,Media
+"Actualizar antivirus en las computadoras, en 2 días",Media
+"Migrar usuarios al nuevo dominio, plazo de 1 semana",Media
+"Corregir error en el reporte mensual, entregar hoy",Media
+"Instalar impresora de red en el área de contabilidad, en 3 días",Media
+"Optimizar consultas lentas de la base de datos, tiempo estimado 4 días",Media
+"Restablecer contraseñas de un grupo de usuarios, hoy",Media
+"Configurar VPN para trabajo remoto, esta semana",Media
+"Revisar logs del servidor por errores recurrentes, en 2 días",Media
+"Cambiar disco duro de una laptop, plazo de 24 horas",Media
+"Probar el nuevo módulo de reportes antes de la entrega, en 5 días",Media
+"Instalar certificado SSL en el sitio, tiempo disponible 3 días",Media
+"Revisar lentitud del sistema en el área de ventas, mañana",Media
+"Actualizar inventario de equipos de cómputo, esta semana",Media
+"Actualizar firmware del router, en 2 días",Media
+Comprar cartuchos de toner para impresora,Baja
+Diseñar un nuevo boton gris para el menu,Baja
+Limpiar el polvo de teclados y pantallas,Baja
+Cambiar cable ethernet dañado,Baja
+Acomodar los escritorios del area,Baja
+Pintar la oficina de soporte,Baja
+"Cambiar el fondo de pantalla de las computadoras, sin prisa",Baja
+"Reemplazar un mouse viejo, en 3 semanas",Baja
+"Etiquetar los cables del rack, cuando haya tiempo",Baja
+"Ordenar el almacén de repuestos, sin fecha límite",Baja
+"Rotular las computadoras con el nombre del usuario, en 1 mes",Baja
+"Cambiar el color del logotipo en la intranet, sin urgencia",Baja
+"Comprar mousepads para el equipo, el próximo mes",Baja
+"Reubicar la impresora a otra mesa, sin prisa",Baja
+"Actualizar el directorio telefónico interno, en 2 semanas",Baja
+"Cambiar la decoración de la sala de juntas, sin fecha límite",Baja
+"Limpiar el cuarto de herramientas, cuando haya tiempo",Baja
+"Reemplazar una silla dañada, en 3 semanas",Baja
+"Archivar facturas antiguas de papel, tiempo de sobra",Baja
+"Revisar el inventario de cables sobrantes, en 1 mes",Baja
