@@ -215,10 +215,12 @@ def eliminar_tarea(id):
     conexion = obtener_conexion()
     cursor = conexion.cursor()
 
-    # Si quisieras que Sistemas pudiera borrar tareas de otros, aquí habría que quitar el "AND usuario_id = %s" para el admin.
-    # Por ahora se queda igual para que cada quien borre solo lo suyo (o el admin sus propios tickets).
-    cursor.execute('DELETE FROM tareas WHERE id = %s AND usuario_id = %s',
-                   (id, session['usuario_id']))
+    if session.get('rol') == 'admin':
+        # El admin puede borrar cualquier tarea
+        cursor.execute('DELETE FROM tareas WHERE id = %s', (id,))
+    else:
+        cursor.execute('DELETE FROM tareas WHERE id = %s AND usuario_id = %s',
+                       (id, session['usuario_id']))
     conexion.commit()
 
     cursor.close()
@@ -227,13 +229,18 @@ def eliminar_tarea(id):
     socketio.emit('actualizacion_tareas', {'mensaje': '¡Alguien eliminó una tarea!'})
     return redirect('/tareas')
 
+
 @app.route('/completar_tarea/<int:id>')
 def completar_tarea(id):
     conexion = obtener_conexion()
     cursor = conexion.cursor()
 
-    cursor.execute("UPDATE tareas SET estado = 'Completada' WHERE id = %s AND usuario_id = %s",
-                   (id, session['usuario_id']))
+    if session.get('rol') == 'admin':
+        # El admin puede completar cualquier tarea
+        cursor.execute("UPDATE tareas SET estado = 'Completada' WHERE id = %s", (id,))
+    else:
+        cursor.execute("UPDATE tareas SET estado = 'Completada' WHERE id = %s AND usuario_id = %s",
+                       (id, session['usuario_id']))
     conexion.commit()
 
     cursor.close()
